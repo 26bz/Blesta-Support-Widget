@@ -1,0 +1,290 @@
+<?php
+$this->Widget->clear();
+$this->Widget->setStyleSheet($this->view_dir . 'css/styles.css?ver=1.0', ['id' => 'support_widget_styles']);
+$this->Widget->create("Support Tickets", ['id' => 'widget_support_tickets'], 'full');
+
+$status_counts = [
+    'open' => 0,
+    'awaiting_reply' => 0,
+    'in_progress' => 0,
+    'on_hold' => 0,
+    'closed' => 0,
+    'trash' => 0
+];
+
+if (!empty($tickets) && is_array($tickets)) {
+    foreach ($tickets as $ticket) {
+        if (isset($status_counts[$ticket->status])) {
+            $status_counts[$ticket->status]++;
+        }
+    }
+}
+
+$statistics = [
+    [
+        'name' => 'Open',
+        'value' => $status_counts['open'],
+        'icon' => 'fas fa-ticket-alt',
+        'class' => 'open_tickets',
+        'url' => $this->base_uri . 'plugin/support_manager/admin_tickets/index/open/'
+    ],
+    [
+        'name' => 'Awaiting Reply',
+        'value' => $status_counts['awaiting_reply'],
+        'icon' => 'fas fa-clock',
+        'class' => 'awaiting_tickets',
+        'url' => $this->base_uri . 'plugin/support_manager/admin_tickets/index/awaiting_reply/'
+    ],
+    [
+        'name' => 'In Progress',
+        'value' => $status_counts['in_progress'],
+        'icon' => 'fas fa-cog',
+        'class' => 'progress_tickets',
+        'url' => $this->base_uri . 'plugin/support_manager/admin_tickets/index/in_progress/'
+    ],
+    [
+        'name' => 'On Hold',
+        'value' => $status_counts['on_hold'],
+        'icon' => 'fas fa-pause',
+        'class' => 'hold_tickets',
+        'url' => $this->base_uri . 'plugin/support_manager/admin_tickets/index/on_hold/'
+    ]
+];
+?>
+
+<div id="support_overview">
+    <div class="system_top_row">
+        <ul class="left_nav">
+            <?php foreach ($statistics as $stat) { ?>
+            <li class="<?php echo $this->Html->safe($stat['class']);?>">
+                <div>
+                    <i class="<?php echo $this->Html->safe($stat['icon']);?>"></i>
+                    <?php if ($stat['url']) { ?>
+                    <a href="<?php echo $this->Html->safe($stat['url']);?>">
+                    <?php } ?>
+                    <span><?php echo $this->Html->safe($stat['name']);?></span>
+                    <span class="value"><?php echo $this->Html->safe($stat['value']);?></span>
+                    <?php if ($stat['url']) { ?>
+                    </a>
+                    <?php } ?>
+                </div>
+            </li>
+            <?php } ?>
+        </ul>
+
+        <div class="right_box">
+            <h3><i class="fas fa-fw fa-list"></i> Recent Tickets</h3>
+            <div>
+                <?php 
+                if (!empty($tickets) && is_array($tickets)) {
+                    $recent_tickets = array_slice($tickets, 0, 5);
+                    foreach ($recent_tickets as $ticket) {
+                        $ticket_class = 'recent';
+                        if ($ticket->priority == 'emergency' || $ticket->priority == 'critical') {
+                            $ticket_class = 'latest';
+                        } elseif ($ticket->status == 'open') {
+                            $ticket_class = 'user';
+                        }
+                ?>
+                <span class="tooltip name <?php echo $this->Html->safe($ticket_class);?>">
+                    <?php if (isset($ticket->id) && $ticket->status !== 'error') { ?>
+                        <a href="<?php echo $this->Html->safe($this->base_uri . 'plugin/support_manager/admin_tickets/reply/' . $ticket->id . '/'); ?>">
+                            <?php echo $this->Html->safe($ticket->code); ?>
+                        </a>
+                    <?php } else { ?>
+                        <?php echo $this->Html->safe($ticket->code); ?>
+                    <?php } ?>
+                    <div>
+                        <p>
+                            <strong>Subject:</strong><br />
+                            <?php echo $this->Html->safe($ticket->summary); ?>
+                            <br /><br />
+                            <strong>Status:</strong> <?php 
+                            $status_display = '';
+                            switch ($ticket->status) {
+                                case 'open':
+                                    $status_display = 'Open';
+                                    break;
+                                case 'awaiting_reply':
+                                    $status_display = 'Awaiting Client Reply';
+                                    break;
+                                case 'in_progress':
+                                    $status_display = 'In Progress';
+                                    break;
+                                case 'on_hold':
+                                    $status_display = 'On Hold';
+                                    break;
+                                case 'closed':
+                                    $status_display = 'Closed';
+                                    break;
+                                case 'trash':
+                                    $status_display = 'Trashed';
+                                    break;
+                                default:
+                                    $status_display = ucfirst(str_replace('_', ' ', $ticket->status));
+                            }
+                            echo $this->Html->safe($status_display);
+                            ?>
+                            <br />
+                            <strong>Priority:</strong> <?php echo $this->Html->safe(ucfirst($ticket->priority ?? 'low')); ?>
+                            <br />
+                            <strong>Department:</strong> <?php echo $this->Html->safe($ticket->department_name ?? 'N/A'); ?>
+                            <?php if (!empty($ticket->last_reply_date)) { ?>
+                            <br /><br />
+                            <strong>Last Reply:</strong><br />
+                            <?php echo $this->Date->cast($ticket->last_reply_date, 'date_time'); ?>
+                            <?php } ?>
+                        </p>
+                    </div>
+                </span>
+                <?php } } else { ?>
+                <span class="name old">No recent tickets found</span>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <?php if (!empty($tickets) && is_array($tickets) && count($tickets) > 0 && $tickets[0]->status !== 'error') { ?>
+    <div class="recent_tickets_header">
+        <h4>
+            <i class="fas fa-clock"></i>
+            Recent Tickets
+            <span>(Last 10 tickets)</span>
+        </h4>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ticket</th>
+                    <th>Summary</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Department</th>
+                    <th>Last Reply</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                $recent_table_tickets = array_slice($tickets, 0, 10);
+                foreach ($recent_table_tickets as $ticket) {
+                    $priority = strtolower($ticket->priority ?? 'low');
+                    $priority_class = 'priority-' . $priority;
+                ?>
+                    <tr>
+                        <td>
+                            <?php if (isset($ticket->id) && $ticket->status !== 'error') { ?>
+                                <a href="<?php echo $this->Html->safe($this->base_uri . 'plugin/support_manager/admin_tickets/reply/' . $ticket->id . '/'); ?>" class="ticket-link">
+                                    <?php echo $this->Html->safe($ticket->code); ?>
+                                </a>
+                            <?php } else { ?>
+                                <?php echo $this->Html->safe($ticket->code); ?>
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <span class="summary-text" title="<?php echo $this->Html->safe($ticket->summary); ?>">
+                                <?php 
+                                $summary = $ticket->summary;
+                                echo $this->Html->safe(strlen($summary) > 30 ? substr($summary, 0, 30) . '...' : $summary); 
+                                ?>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="priority-badge <?php echo $priority_class; ?>">
+                                <?php echo $this->Html->safe(ucfirst($ticket->priority ?? 'low')); ?>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="status-text">
+                                <?php 
+                                $status_display = '';
+                                switch ($ticket->status) {
+                                    case 'open':
+                                        $status_display = 'Open';
+                                        break;
+                                    case 'awaiting_reply':
+                                        $status_display = 'Awaiting Client Reply';
+                                        break;
+                                    case 'in_progress':
+                                        $status_display = 'In Progress';
+                                        break;
+                                    case 'on_hold':
+                                        $status_display = 'On Hold';
+                                        break;
+                                    case 'closed':
+                                        $status_display = 'Closed';
+                                        break;
+                                    case 'trash':
+                                        $status_display = 'Trashed';
+                                        break;
+                                    default:
+                                        $status_display = ucfirst(str_replace('_', ' ', $ticket->status));
+                                }
+                                echo $this->Html->safe($status_display);
+                                ?>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="status-text"><?php echo $this->Html->safe($ticket->department_name ?? 'N/A'); ?></span>
+                        </td>
+                        <td>
+                            <span class="status-text">
+                                <?php 
+                                if (!empty($ticket->last_reply_date)) {
+                                    $last_reply_time = strtotime($ticket->last_reply_date);
+                                    $now = time();
+                                    $diff = $now - $last_reply_time;
+                                    
+                                    if ($diff < 60) {
+                                        echo "Just now";
+                                    } elseif ($diff < 3600) {
+                                        $minutes = floor($diff / 60);
+                                        echo $minutes . " min" . ($minutes != 1 ? "s" : "");
+                                    } elseif ($diff < 86400) {
+                                        $hours = floor($diff / 3600);
+                                        $minutes = floor(($diff % 3600) / 60);
+                                        if ($minutes > 0) {
+                                            echo $hours . " hr" . ($hours != 1 ? "s" : "") . " " . $minutes . " min";
+                                        } else {
+                                            echo $hours . " hr" . ($hours != 1 ? "s" : "");
+                                        }
+                                    } elseif ($diff < 604800) {
+                                        $days = floor($diff / 86400);
+                                        echo $days . " day" . ($days != 1 ? "s" : "");
+                                    } else {
+                                        echo $this->Date->cast($ticket->last_reply_date, "M j");
+                                    }
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
+                            </span>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+
+    <?php if (count($tickets) > 10) { ?>
+    <div class="button_row">
+        <span class="ticket-count">
+            Showing 10 of <?php echo count($tickets); ?> total tickets
+        </span>
+        <div class="clear"></div>
+    </div>
+    <?php } ?>
+    <?php } ?>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    if (typeof $.fn.blestaBindToolTips === 'function') {
+        $('#widget_support_tickets').blestaBindToolTips();
+    }
+});
+</script>
+
+<?php $this->Widget->end(); ?>

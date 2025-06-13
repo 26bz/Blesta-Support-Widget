@@ -1,0 +1,288 @@
+#widget_support_tickets .system_top_row {
+  float: left;
+  width: 96%;
+  padding: 7px 2% 13px;
+}
+#widget_support_tickets .system_top_row .left_nav {
+  float: left;
+  width: 48%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#widget_support_tickets .system_top_row .left_nav li {
+  display: block;
+  overflow: hidden;
+  padding: 8px 0 3px;
+  border-bottom: 1px solid #e1e1e1;
+}
+#widget_support_tickets .system_top_row .left_nav li div {
+  float: left;
+  width: 100%;
+  display: block;
+}
+#widget_support_tickets .system_top_row .left_nav li div span {
+  font-size: 14px;
+  color: #656565;
+}
+#widget_support_tickets .system_top_row .left_nav li div span.value {
+  float: right;
+  font-size: 18px;
+  font-weight: bold;
+  color: #232427;
+  line-height: 18px;
+}
+#widget_support_tickets .system_top_row .left_nav li div i {
+  margin-right: 8px;
+  width: 16px;
+  color: #656565;
+}
+#widget_support_tickets .system_top_row .right_box {
+  float: right;
+  width: 48%;
+}
+#widget_support_tickets .system_top_row .right_box h3 {
+  font-size: 14px;
+  font-weight: normal;
+  padding: 9px 0 3px 0;
+  border-bottom: 1px solid #e1e1e1;
+  margin: 0;
+}
+#widget_support_tickets .system_top_row .right_box div {
+  line-height: 14px;
+  font-size: 10px;
+  padding: 10px 0 0;
+}
+#widget_support_tickets .left_nav .open_tickets div span.value {
+  color: #d9534f;
+}
+#widget_support_tickets .left_nav .awaiting_tickets div span.value {
+  color: #f0ad4e;
+}
+#widget_support_tickets .left_nav .progress_tickets div span.value {
+  color: #5bc0de;
+}
+#widget_support_tickets .left_nav .hold_tickets div span.value {
+  color: #777;
+}
+#widget_support_tickets .system_top_row .right_box div .name a,
+#widget_support_tickets .system_top_row .right_box div .name.latest a,
+#widget_support_tickets .system_top_row .right_box div .name,
+#widget_support_tickets .system_top_row .right_box div .name.latest {
+  color: #429fcb;
+  font-weight: bold;
+}
+#widget_support_tickets .system_top_row .right_box div .name.user a,
+#widget_support_tickets .system_top_row .right_box div .name.user {
+  color: #232427;
+}
+#widget_support_tickets .system_top_row .right_box div .name.recent a,
+#widget_support_tickets .system_top_row .right_box div .name.recent {
+  color: #83b4cb;
+}
+#widget_support_tickets .system_top_row .right_box div .name.old a,
+#widget_support_tickets .system_top_row .right_box div .name.old {
+  color: #cbcbcb;
+}
+#widget_support_tickets .system_top_row .tooltip {
+  border: none;
+  margin: 0 5px 0 0;
+  position: relative;
+  display: inline-block;
+}
+#widget_support_tickets .system_top_row .tooltip div {
+  position: absolute;
+  background: #333;
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  line-height: 1.4;
+  min-width: 200px;
+  z-index: 1000;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -100px;
+  margin-bottom: 5px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s;
+}
+#widget_support_tickets .system_top_row .tooltip:hover div {
+  opacity: 1;
+  visibility: visible;
+}
+#widget_support_tickets .system_top_row .tooltip div:after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 5px solid transparent;
+  border-top-color: #333;
+}
+#widget_support_tickets .recent_tickets_header {
+  padding: 20px 15px 15px 15px;
+  border-top: 1px solid #e1e1e1;
+  margin-top: 15px;
+}
+#widget_support_tickets .recent_tickets_header h4 {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+  font-weight: normal;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #e1e1e1;
+}
+#widget_support_tickets .recent_tickets_header h4 i {
+  margin-right: 10px;
+  color: #656565;
+  width: 16px;
+  display: inline-block;
+}
+#widget_support_tickets .recent_tickets_header h4 span {
+  font-size: 11px;
+  color: #999;
+  font-weight: normal;
+  margin-left: 8px;
+}
+#widget_support_tickets .table-responsive {
+  margin: 0;
+  padding: 0;
+}
+#widget_support_tickets .table {
+  margin: 10px 0;
+  font-size: 12px;
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+}
+#widget_support_tickets .table thead {
+  background: #f8f8f8;
+}
+#widget_support_tickets .table th {
+  font-weight: bold;
+  background: #f8f8f8;
+  border: none;
+  border-bottom: 1px solid #e1e1e1;
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 11px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+#widget_support_tickets .table td {
+  padding: 12px 15px;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+  font-size: 12px;
+  line-height: 1.4;
+}
+#widget_support_tickets .table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+#widget_support_tickets .table tbody tr:last-child td {
+  border-bottom: none;
+}
+#widget_support_tickets .summary-text {
+  cursor: help;
+  position: relative;
+  display: block;
+  padding: 2px 0;
+}
+#widget_support_tickets .summary-text:hover {
+  color: #428bca;
+}
+#widget_support_tickets .priority-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 2px 0;
+}
+#widget_support_tickets .priority-emergency {
+  background-color: #d9534f;
+  color: white;
+}
+#widget_support_tickets .priority-critical {
+  background-color: #f0ad4e;
+  color: white;
+}
+#widget_support_tickets .priority-high {
+  background-color: #5cb85c;
+  color: white;
+}
+#widget_support_tickets .priority-medium {
+  background-color: #5bc0de;
+  color: white;
+}
+#widget_support_tickets .priority-low {
+  background-color: #777;
+  color: white;
+}
+#widget_support_tickets .status-text {
+  font-size: 11px;
+  color: #666;
+  line-height: 1.3;
+  padding: 1px 0;
+}
+#widget_support_tickets .ticket-link {
+  font-weight: bold;
+  color: #428bca;
+  text-decoration: none;
+  padding: 2px 0;
+  display: inline-block;
+}
+#widget_support_tickets .ticket-link:hover {
+  color: #357ebd;
+  text-decoration: underline;
+}
+#widget_support_tickets .button_row {
+  float: left;
+  width: 100%;
+  padding: 15px 0 0;
+  text-align: right;
+}
+#widget_support_tickets .button_row .btn_right {
+  display: inline-block;
+  padding: 6px 12px;
+  background: #428bca;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: normal;
+}
+#widget_support_tickets .button_row .btn_right:hover {
+  background: #357ebd;
+}
+/*! Template: Blesta Support Widget | Resource ID: 68785 | Version: v1.0 (211548) | Downloaded by: 26bz (User ID: 473255) | Download Time: 1749807422 | Platform Verified: true | Unique Trace ID: 39ee43623b40d4f860a1714d3c0d46cb | Copyright @26bz https://26bz.online | Redistribution results in takedowns */
+
+#widget_support_tickets .button_row .ticket-count {
+  float: left;
+  color: #999;
+  font-size: 11px;
+  padding-top: 8px;
+}
+#widget_support_tickets .clear,
+#widget_support_tickets .clearfix {
+  clear: both;
+}
+#widget_support_tickets .clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#widget_support_tickets a {
+  color: #428bca;
+  text-decoration: none;
+}
+#widget_support_tickets a:hover {
+  color: #357ebd;
+  text-decoration: underline;
+}
