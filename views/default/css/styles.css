@@ -113,7 +113,7 @@
   visibility: visible;
 }
 #widget_support_tickets .system_top_row .tooltip div:after {
-  content: "";
+  content: '';
   position: absolute;
   top: 100%;
   left: 50%;
@@ -261,8 +261,6 @@
 #widget_support_tickets .button_row .btn_right:hover {
   background: #357ebd;
 }
-/*! Template: Blesta Support Widget | Resource ID: 68785 | Version: v1.0 (211548) | Downloaded by: 26bz (User ID: 473255) | Download Time: 1749807422 | Platform Verified: true | Unique Trace ID: 39ee43623b40d4f860a1714d3c0d46cb | Copyright @26bz https://26bz.online | Redistribution results in takedowns */
-
 #widget_support_tickets .button_row .ticket-count {
   float: left;
   color: #999;
@@ -274,7 +272,7 @@
   clear: both;
 }
 #widget_support_tickets .clearfix:after {
-  content: "";
+  content: '';
   display: table;
   clear: both;
 }

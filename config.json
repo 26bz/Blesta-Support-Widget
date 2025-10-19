@@ -1,13 +1,13 @@
 {
-    "version": "1.0",
-    "name": "Support Widget",
-    "description": "Dashboard widget displaying support ticket statistics and recent activity for quick team overview",
-    "authors": [
-        {
-            "name": "26bz",
-            "url": "https://26bz.online"
-        }
-    ],
-    "support_url": "https://26bz.online/",
-    "logo": "views/default/images/logo.png"
+  "version": "1.0",
+  "name": "Support Widget",
+  "description": "Dashboard widget displaying support ticket statistics and recent activity for quick team overview",
+  "authors": [
+    {
+      "name": "26bz",
+      "url": "https://26bz.online"
+    }
+  ],
+  "support_url": "https://26bz.online/",
+  "logo": "views/default/images/logo.png"
 }
