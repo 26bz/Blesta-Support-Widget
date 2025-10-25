@@ -1,4 +1,5 @@
 <?php
+
 class SupportWidgetPlugin extends Plugin
 {
   public function __construct()
